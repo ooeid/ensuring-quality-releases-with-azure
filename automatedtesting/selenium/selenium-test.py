@@ -17,29 +17,6 @@ def login (driver, user="standard_user", password="secret_sauce"):
     assert 'https://www.saucedemo.com/inventory.html' in driver.current_url
     print(timestamp() +' Login successful with username '+ user + ' and password '+ password)
 
-def add_cart(driver,n):
-    acum = 0
-    for i in range(n):
-        element = "a[id='item_" + str(i) + "_title_link']"
-        driver.find_element_by_css_selector(element).click()
-        driver.find_element_by_css_selector("button.btn_primary.btn_inventory").click()
-        product = driver.find_element_by_css_selector("div[class='inventory_details_name large_size']").text
-        print(timestamp() + " " + product + " added to shopping cart!")
-        driver.find_element_by_css_selector("button.inventory_details_back_button").click()
-        acum +=1
-    print(timestamp() +' '+ str(acum) + ' items added to cart successfully.')
-
-def remove_cart(driver,n):
-    acum = 0
-    for i in range(n):
-        element = "a[id='item_" + str(i) + "_title_link']"
-        driver.find_element_by_css_selector(element).click()
-        driver.find_element_by_css_selector("button.btn_secondary.btn_inventory").click()
-        product = driver.find_element_by_css_selector("div[class='inventory_details_name large_size']").text
-        print(timestamp() + " " + product + " removed from shopping cart!")
-        driver.find_element_by_css_selector("button.inventory_details_back_button").click()
-        acum +=1
-    print(timestamp() +' '+ str(acum) + ' items removed from cart successfully.')
 
 if __name__ == "__main__":
     print ('Starting the browser...')
