@@ -6,8 +6,8 @@ tenant_id = "8a213bc2-3847-4aee-9205-527d56cef5a2"
 
 # Resource Group/Location
 location = "southcentralus"
-resource_group = "tqa"
-application_type = "tqa"
+resource_group = "tqa1"
+application_type = "tqa1"
 
 # Network
 virtual_network_name = "vnetudacity"
