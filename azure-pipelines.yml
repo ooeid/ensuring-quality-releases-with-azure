@@ -257,12 +257,14 @@ stages:
         newman run automatedtesting/postman/regressionTest.json \
                    -e automatedtesting/postman/testingenvironment.json \
                    --reporters cli,junit \
+                   --reporter-junit-export log/newman/regressionTestUdacity.xml \
                    --suppress-exit-code
       displayName: Run Regression Test
     - bash: |
         newman run automatedtesting/postman/validationTest.json \
                    -e automatedtesting/postman/testingenvironment.json \
                    --reporters cli,junit \
+                   --reporter-junit-export log/newman/validationTestUdacity.xml \
                    --suppress-exit-code
       displayName: Run Validation Test
     - task: PublishPipelineArtifact@1
@@ -272,4 +274,9 @@ stages:
         artifactName: 'drop-newman-logs'
     - task: PublishTestResults@2
       displayName: 'Publish Postman Test Results'
-
+      inputs:
+        testRunner: 'JUnit'
+        searchFolder: '$(System.DefaultWorkingDirectory)/log/newman'
+        testResultsFiles: '*.xml'
+        mergeTestResults: true
+        testRunTitle: 'Postman Test Results'
