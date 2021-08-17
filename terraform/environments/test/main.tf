@@ -1,6 +1,7 @@
 provider "azurerm" {
   features {}
- version = "~> 1.0.1"
+  skip_provider_registration = "true"
+  subscription_id = "c25dd7d5-e171-4e0e-b7b6-bfbc68eb98a3"
 }
 terraform {
   backend "azurerm" {
