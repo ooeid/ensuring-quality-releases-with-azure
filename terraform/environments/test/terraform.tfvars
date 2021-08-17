@@ -6,13 +6,13 @@ tenant_id = "8a213bc2-3847-4aee-9205-527d56cef5a2"
 
 # Resource Group/Location
 location = "southcentralus"
-resource_group = "udacityrg"
-application_type = "udacitytest"
+resource_group = "tqa"
+application_type = "tqa"
 
 # Network
 virtual_network_name = "vnetudacity"
 address_space = ["10.5.0.0/16"]
 address_prefix_test = "10.5.1.0/24"
 
-admin_username = "george"
-prefix = "udacity" 
+admin_username = "omar"
+prefix = "tqa" 
