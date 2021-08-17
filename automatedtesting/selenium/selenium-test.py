@@ -6,8 +6,9 @@ import datetime
 def timestamp():
     return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
+
 # Start the browser and login with standard_user
-def login (driver, user, password):
+def login (driver, user="standard_user", password="secret_sauce"):
     #Login
     driver.get('https://www.saucedemo.com/')
     driver.find_element_by_css_selector("input[id='user-name']").send_keys(user)
