@@ -180,9 +180,9 @@ stages:
               unzip -o selenium-$(Build.BuildId).zip
               pwd
               ls -la
-              mkdir -p /var/log/selenium
+              sudo mkdir -p /var/log/selenium
               sudo chmod 664 /var/log/selenium
-              sudo python3 -u selenium-test.py 2>&1 | tee -a /var/log/selenium/selenium-test.log
+              sudo python3 -u selenium-test.py 2>&1 | sudo tee -a /var/log/selenium/selenium-test.log
               # copy selenium log file to $(System.DefaultWorkingDirectory)/log/selenium/
               cd $(System.DefaultWorkingDirectory)
               mkdir -p log/selenium

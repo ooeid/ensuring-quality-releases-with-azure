@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "89046594-f0f8-49e8-831b-50885b3f4b00",
+		"_postman_id": "ffd7d047-9baa-4de5-9baf-fb94de69b20f",
 		"name": "Regression Test Udacity",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -139,18 +139,17 @@
 				}
 			],
 			"request": {
-				"method": "DELETE",
+				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/api/{{version}}/delete/{{id}}",
+					"raw": "{{url}}/api/{{version}}/5",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"api",
 						"{{version}}",
-						"delete",
-						"{{id}}"
+						"5"
 					]
 				}
 			},
