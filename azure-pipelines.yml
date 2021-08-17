@@ -136,32 +136,6 @@ stages:
         deploy:
           steps:
           - bash: |
-              sudo apt-get update -y
-              sudo apt-get install python3-pip -y
-              sudo apt-get install unzip -y
-              sudo apt-get install -y chromium-browser
-              sudo apt-get install -y chromium-chromedriver
-              python3 -m pip install --upgrade pip
-              pip3 install selenium
-              # Install Log Analytics agent on Linux computers (only need to run once, comment when installed)
-              # wget https://raw.githubusercontent.com/Microsoft/OMS-Agent-for-Linux/master/installer/scripts/onboard_agent.sh && sh onboard_agent.sh -w ${AZURE_LOG_ANALYTICS_ID} -s ${AZURE_LOG_ANALYTICS_PRIMARY_KEY} -d opinsights.azure.com
-            env: 
-              AZURE_LOG_ANALYTICS_ID: $(la_workspace_id)
-              AZURE_LOG_ANALYTICS_PRIMARY_KEY: $(la_primary_key)
-            displayName: Configure VM
-
-- stage: Test
-  jobs:
-  - deployment: test_vm
-    displayName: UI Test 
-    environment:
-      name: 'TEST'
-      resourceType: VirtualMachine
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - bash: |
               pwd
               hostname
               uname -a
@@ -187,9 +161,37 @@ stages:
             env:  # To use secret variables in a script, we must explicitly map them as environment variables.
               AZURE_LOG_ANALYTICS_ID: $(AZURE_LOG_ANALYTICS_ID)
               AZURE_LOG_ANALYTICS_PRIMARY_KEY: $(AZURE_LOG_ANALYTICS_PRIMARY_KEY)
-            displayName: Running Selenium 
+            displayName: Configure VM
+
+- stage: Test
+  jobs:
+  - deployment: test_vm
+    displayName: UI Test 
+    environment:
+      name: 'TEST'
+      resourceType: VirtualMachine
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - bash: |
+              cd $(Pipeline.Workspace)/drop-selenium
+              find . -type f ! -name 'selenium-$(Build.BuildId).zip' -delete  # delete everything except 'selenium-$(Build.BuildId).zip'
+              unzip -o selenium-$(Build.BuildId).zip
+              pwd
+              ls -la
+              sudo mkdir -p /var/log/selenium
+              sudo chmod 664 /var/log/selenium
+              sudo python3 -u selenium-test.py 2>&1 | sudo tee -a /var/log/selenium/selenium-test.log
+              # copy selenium log file to $(System.DefaultWorkingDirectory)/log/selenium/
+              cd $(System.DefaultWorkingDirectory)
+              mkdir -p log/selenium
+              pwd
+              sudo cp /var/log/selenium/selenium-test.log log/selenium/selenium-test.log
+              ls -la
+            displayName: Run selenium tests
           - task: PublishPipelineArtifact@1
-            displayName: Publishing logs
+            displayName: Publish selenium logs
             inputs:
               targetPath: '$(System.DefaultWorkingDirectory)/log/selenium/selenium-test.log'
               artifactName: 'drop-selenium-logs'
