@@ -44,7 +44,7 @@ stages:
         backendServiceArm: 'azurerm-sc'
         backendAzureRmResourceGroupName: 'tqa'
         backendAzureRmStorageAccountName: 'tqa30511'
-        backendAzureRmContainerName: 'tstate'
+        backendAzureRmContainerName: 'tqa'
         backendAzureRmKey: 'test.terraform.tfstate'
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
 
