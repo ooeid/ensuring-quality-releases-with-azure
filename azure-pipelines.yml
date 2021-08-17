@@ -193,6 +193,7 @@ stages:
           - task: PublishPipelineArtifact@1
             displayName: Publish selenium logs
 
+
   - job: test_jmeter
     displayName: Performance Testing
     pool:
@@ -254,17 +255,18 @@ stages:
       displayName: Install Newman CLI
     - bash: |
         newman run automatedtesting/postman/regressionTest.json \
-                   -e automatedtesting/postman/testingenvironment.postman_environment.json \
+                   -e automatedtesting/postman/testingenvironment.json \
                    --reporters cli,junit \
-                   --reporter-junit-export log/newman/regressionTest.xml \
+                   --reporter-junit-export log/newman/regressionTestUdacity.xml \
                    --suppress-exit-code
       displayName: Run Regression Test
     - bash: |
         newman run automatedtesting/postman/validationTest.json \
-                   -e automatedtesting/postman/testingenvironment.postman_environment.json \
+                   -e automatedtesting/postman/testingenvironment.json \
                    --reporters cli,junit \
                    --reporter-junit-export log/newman/validationTestUdacity.xml \
                    --suppress-exit-code
+      displayName: Run Validation Test
     - task: PublishPipelineArtifact@1
       displayName: Publish Newman logs
       inputs:
