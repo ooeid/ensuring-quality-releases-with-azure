@@ -5,7 +5,7 @@ trigger:
 - master
 
 stages:
-- stage: Equipping
+- stage: Infrastructure
   jobs:
   - job: TerraformTasks
     displayName: Terraform 
@@ -181,13 +181,13 @@ stages:
               pwd
               ls -la
               mkdir -p /var/log/selenium
-              chmod 664 /var/log/selenium
-              python3 -u selenium-test.py 2>&1 |  tee -a /var/log/selenium/selenium-test.log
+              sudo chmod 664 /var/log/selenium
+              sudo python3 -u selenium-test.py 2>&1 | tee -a /var/log/selenium/selenium-test.log
               # copy selenium log file to $(System.DefaultWorkingDirectory)/log/selenium/
               cd $(System.DefaultWorkingDirectory)
-              -p log/selenium
+              mkdir -p log/selenium
               pwd
-              cp /var/log/selenium/selenium-test.log log/selenium/selenium-test.log
+              sudo cp /var/log/selenium/selenium-test.log log/selenium/selenium-test.log
               ls -la
             displayName: Run selenium tests
           - task: PublishPipelineArtifact@1
