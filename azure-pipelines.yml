@@ -275,6 +275,5 @@ stages:
       inputs:
         testRunner: 'JUnit'
         searchFolder: '$(System.DefaultWorkingDirectory)/log/newman'
-        testResultsFiles: '*.xml'
         mergeTestResults: true
         testRunTitle: 'Postman Test Results'
