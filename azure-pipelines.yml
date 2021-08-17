@@ -272,8 +272,4 @@ stages:
         artifactName: 'drop-newman-logs'
     - task: PublishTestResults@2
       displayName: 'Publish Postman Test Results'
-      inputs:
-        testRunner: 'JUnit'
-        searchFolder: '$(System.DefaultWorkingDirectory)/log/newman'
-        mergeTestResults: true
-        testRunTitle: 'Postman Test Results'
+
