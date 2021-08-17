@@ -180,14 +180,14 @@ stages:
               unzip -o selenium-$(Build.BuildId).zip
               pwd
               ls -la
-              sudo mkdir -p /var/log/selenium
-              sudo chmod 664 /var/log/selenium
-              sudo python3 -u selenium-test.py 2>&1 | sudo tee -a /var/log/selenium/selenium-test.log
+              mkdir -p /var/log/selenium
+              chmod 664 /var/log/selenium
+              python3 -u selenium-test.py 2>&1 |  tee -a /var/log/selenium/selenium-test.log
               # copy selenium log file to $(System.DefaultWorkingDirectory)/log/selenium/
               cd $(System.DefaultWorkingDirectory)
-              mkdir -p log/selenium
+              -p log/selenium
               pwd
-              sudo cp /var/log/selenium/selenium-test.log log/selenium/selenium-test.log
+              cp /var/log/selenium/selenium-test.log log/selenium/selenium-test.log
               ls -la
             displayName: Run selenium tests
           - task: PublishPipelineArtifact@1
